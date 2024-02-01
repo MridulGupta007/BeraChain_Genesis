@@ -25,7 +25,7 @@ const { chains, publicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "SwayamSewak",
+  appName: "HarmonyHub",
   projectId: "b20ec248fdbe746a0f8306abfacf7468",
   chains,
 });
