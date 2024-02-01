@@ -577,11 +577,11 @@ function FindShg() {
           ABI,
           signer
         );
-        // console.log(id)
+        memberOfShg.setMemberId(id)
         await connectedContract.joinShg(id);
-		let idOfShg = await connectedContract.getMemberOfShg();
+		    await connectedContract.getMemberOfShg();
         // console.log(idOfShg)
-		memberOfShg.setMemberId(idOfShg)
+		
 		
       }
     } catch (error) {

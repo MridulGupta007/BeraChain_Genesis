@@ -603,11 +603,12 @@ function ManageShg({ activity }) {
 
         //     let resp = (await connectedContract.getShgCount()).toNumber();
         // console.log(resp)
+        console.log(shgId.memberId)
 
-        let name = await connectedContract.getShgName(1);
-        let description = await connectedContract.getShgDescription(1);
-        let date = (await connectedContract.getShgCreationTime(1));
-        let funds = await connectedContract.getShgBalance(1);
+        let name = await connectedContract.getShgName(shgId.memberId);
+        let description = await connectedContract.getShgDescription(shgId.memberId);
+        let date = (await connectedContract.getShgCreationTime(shgId.memberId));
+        let funds = await connectedContract.getShgBalance(shgId.memberId);
         let newDate = new Date(date*1000)
 				// console.log(funds.toNumber())
 				let formatted = newDate.toLocaleString("en-us", {
