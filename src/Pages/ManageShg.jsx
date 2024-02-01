@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../Components/Button";
 import { NavLink } from "react-router-dom";
 import { Signer, ethers } from "ethers";
+import { MemberId } from "../Context/MemberId";
 
 const members = [{ name: "x" }, { name: "y" }, { name: "z" }];
 const CONTRACT_ADDRESS = "0x726709e109688A2b5368D0cB49D9334E642CAD7e";
@@ -580,6 +581,8 @@ const getMembers = async () => {
 };
 
 function ManageShg({ activity }) {
+
+  const shgId = useContext(MemberId)
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [myBalance, setMyBalance] = useState(0);
@@ -603,25 +606,39 @@ function ManageShg({ activity }) {
 
         let name = await connectedContract.getShgName(1);
         let description = await connectedContract.getShgDescription(1);
-        let date = (await connectedContract.getShgCreationTime(1)).toNumber();
+        let date = (await connectedContract.getShgCreationTime(1));
+        let funds = await connectedContract.getShgBalance(1);
+        let newDate = new Date(parseInt(date))
+				// console.log(funds.toNumber())
+				let formatted = newDate.toLocaleString("en-us", {
+					month: "short",
+					year: "numeric"
+				})
         // let memberCount = (await connectedContract.getMemberOfShg(i))
-        console.log(name, description, date);
+        setName(name)
+        setDesc(description)
+        setTimeStamp(formatted)
+        setShgBalance(funds.toNumber())
       }
     } catch (error) {
       console.log(error);
     }
   }
 
+  useEffect(() => {
+    getMyShgDetails()
+  }, [])
+
   return (
     <div className="bg-[#232323] mx-5 rounded-3xl">
-      <h1 className="text-white text-center text-[25px]">My SHG</h1>
-      <h1 className="text-[#fff]/30 text-center text-[20px]"> I love It</h1>
+      <h1 className="text-white text-center text-[25px]">{name}</h1>
+      <h1 className="text-[#fff]/30 text-center text-[20px]">{desc}</h1>
       <div className="flex justify-evenly border-t border-[50%] mx-5 py-5 my-2">
         <div className="flex flex-col gap-y-5 space-y-5">
           <h1 className="text-white text-[20px]">Details</h1>
           <button
             className="text-white shadow-custom py-3 px-5 rounded-xl hover:bg-white hover:text-[#232323] duration-300 ease-in-out relative right-[10px]"
-            onClick={getMyShgDetails}
+          
           >
             Request Amt
           </button>
@@ -631,11 +648,11 @@ function ManageShg({ activity }) {
           </div>
           <div>
             <h1 className="text-[20px] text-white">SHG Balance</h1>
-            <p className="text-[15px] text-[#f5f5f5]">5 BERA</p>
+            <p className="text-[15px] text-[#f5f5f5]">{shgBalance} BERA</p>
           </div>
           <div>
             <h1 className="text-[20px] text-white">Date Created</h1>
-            <p className="text-[15px] text-[#f5f5f5]">24 January 2024</p>
+            <p className="text-[15px] text-[#f5f5f5]">{timeStamp}</p>
           </div>
         </div>
         <div className="flex flex-col">

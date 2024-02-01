@@ -4,26 +4,6 @@ import { Signer, ethers } from "ethers";
 import ReactModal from "react-modal";
 import { MemberId } from "../Context/MemberId";
 
-const arr = [
-  {
-    name: "x",
-    desc: "sdhfd",
-    members: "5",
-    date: "20 January 2024",
-  },
-  {
-    name: "y",
-    desc: "sdjfh",
-    members: "2",
-    date: "10 January 2024",
-  },
-  {
-    name: "z",
-    desc: "dsfsjdf",
-    members: "7",
-    date: "17 January 2024",
-  },
-];
 
 const CONTRACT_ADDRESS = "0x726709e109688A2b5368D0cB49D9334E642CAD7e";
 const ABI = [
@@ -584,9 +564,9 @@ function FindShg() {
   const [shgDesc, setShgDesc] = useState("");
   const [shgDetails, setShgDetails] = useState([])
 
-  const id = useContext(MemberId)
+  const memberOfShg = useContext(MemberId)
 
-  const joinShg = async () => {
+  const joinShg = async (id) => {
     try {
       let { ethereum } = window;
       if (ethereum) {
@@ -597,10 +577,12 @@ function FindShg() {
           ABI,
           signer
         );
-
-        await connectedContract.joinShg();
-		let resp = await connectedContract.getMemberOfShg();
-		console.log(resp)
+        // console.log(id)
+        await connectedContract.joinShg(id);
+		let idOfShg = await connectedContract.getMemberOfShg();
+        // console.log(idOfShg)
+		memberOfShg.setMemberId(idOfShg)
+		
       }
     } catch (error) {
       console.log(error);
@@ -642,18 +624,23 @@ function FindShg() {
           signer
         );
 
-        let resp = (await connectedContract.getShgCount()).toNumber();
-		console.log(resp)
-	     
-        if(resp >= 1){
-			for(let i =1; i<=resp; i++){
+        let resp = (await connectedContract.getShgCount());
+		// console.log(resp)
+	    
+        if(resp.toNumber() >= 1){
+			for(let i =1; i<=resp.toNumber(); i++){
 				let name = (await connectedContract.getShgName(i))
 				let description = (await connectedContract.getShgDescription(i))
 				let timeStamp = (await connectedContract.getShgCreationTime(i)).toNumber()
 				let memberCount = (await connectedContract.getMembers(i))
-				console.log(memberCount)
-
-				setShgDetails(prev => [...prev, {name: name, desc: description, date: timeStamp, members: memberCount}])
+				let date = new Date(parseInt(timeStamp))
+				console.log(date)
+				let formatted = date.toLocaleString("en-us", {
+					month: "short",
+					year: "numeric"
+				})
+                console.log(formatted)
+				setShgDetails(prev => [...prev, {name: name, desc: description, date: formatted, members: memberCount, shgId: i}])
 			}
 		}
       }
@@ -678,10 +665,10 @@ function FindShg() {
             <h1 className="text-white text-[40px] uppercase">{elem.name}</h1>
             <p className="text-white text-[20px]">{elem.desc}</p>
             <p className="text-white text-[20px]">Date - {elem.date}</p>
-            <p className="text-white text-[20px]">Members - {elem.members}</p>
-            <Button cl="text-white" onClick={joinShg}>
+            <p className="text-white text-[20px]">Members - {elem.members.slice(0, 5)}</p>
+            <button className="text-white" onClick={() => joinShg(elem.shgId)}>
               Join Now
-            </Button>
+            </button>
           </div>
         );
       })}
@@ -691,12 +678,12 @@ function FindShg() {
       >
         Add SHG
       </button>
-      <button
+      {/* <button
         onClick={getShg}
         className="bg-[#232323] text-white self-center px-20 py-3 rounded-lg hover:bg-[white] hover:text-black duration-300 ease-in-out"
       >
         Get SHG
-      </button>
+      </button> */}
 
       <ReactModal
         isOpen={modal}
