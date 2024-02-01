@@ -19,7 +19,7 @@ import { useState } from "react";
 
 
 const { chains, publicClient } = configureChains(
-  [modeTestnet, sepolia, polygonMumbai, goerli, ],
+  [modeTestnet, sepolia, polygonMumbai, goerli],
   [
     alchemyProvider({ apiKey: "nGNX2rQ-BAd_erhkV5BCRFI_0FHnl1a3" }),
     publicProvider(),
