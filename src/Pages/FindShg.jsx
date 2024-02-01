@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../Components/Button";
 import { Signer, ethers } from "ethers";
 import ReactModal from "react-modal";
+import { MemberId } from "../Context/MemberId";
 
 const arr = [
   {
@@ -583,6 +584,8 @@ function FindShg() {
   const [shgDesc, setShgDesc] = useState("");
   const [shgDetails, setShgDetails] = useState([])
 
+  const id = useContext(MemberId)
+
   const joinShg = async () => {
     try {
       let { ethereum } = window;
@@ -596,6 +599,8 @@ function FindShg() {
         );
 
         await connectedContract.joinShg();
+		let resp = await connectedContract.getMemberOfShg();
+		console.log(resp)
       }
     } catch (error) {
       console.log(error);
@@ -645,9 +650,10 @@ function FindShg() {
 				let name = (await connectedContract.getShgName(i))
 				let description = (await connectedContract.getShgDescription(i))
 				let timeStamp = (await connectedContract.getShgCreationTime(i)).toNumber()
-				// let memberCount = (await connectedContract.getMemberOfShg(i))
+				let memberCount = (await connectedContract.getMembers(i))
+				console.log(memberCount)
 
-				setShgDetails(prev => [...prev, {name: name, desc: description, date: timeStamp}])
+				setShgDetails(prev => [...prev, {name: name, desc: description, date: timeStamp, members: memberCount}])
 			}
 		}
       }
@@ -672,7 +678,7 @@ function FindShg() {
             <h1 className="text-white text-[40px] uppercase">{elem.name}</h1>
             <p className="text-white text-[20px]">{elem.desc}</p>
             <p className="text-white text-[20px]">Date - {elem.date}</p>
-            {/* <p className="text-white text-[20px]">Members - {elem.members}</p> */}
+            <p className="text-white text-[20px]">Members - {elem.members}</p>
             <Button cl="text-white" onClick={joinShg}>
               Join Now
             </Button>
