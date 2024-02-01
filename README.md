@@ -1,7 +1,7 @@
 # React + Vite
 
 
-Contract Address: 0x726709e109688A2b5368D0cB49D9334E642CAD7e
+Contract Address: 0xa2de5dDABa3b6C7cce0A25D01E736785023bf0f7
 
 Purpose of Harmony Hub: The purpose of Harmony Hub is to provide a decentralized and transparent platform that facilitates the formation, management, and financial transactions of self-help groups. The key objectives and benefits of such a system include:
 

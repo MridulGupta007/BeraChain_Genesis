@@ -2,6 +2,7 @@ import React from "react";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { NavLink } from "react-router-dom";
+import WalletComponent from "./WalletComponent";
 
 function Header() {
   return (
@@ -31,7 +32,7 @@ function Header() {
         </Button> */}
 
         <div className="flex items-center space-x-3">
-          <ConnectButton />
+          <WalletComponent />
         </div>
       </nav>
     </div>

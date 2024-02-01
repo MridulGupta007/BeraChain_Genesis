@@ -5,558 +5,558 @@ import ReactModal from "react-modal";
 import { MemberId } from "../Context/MemberId";
 
 
-const CONTRACT_ADDRESS = "0x726709e109688A2b5368D0cB49D9334E642CAD7e";
-const ABI = [
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "addFunds",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_shgName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_shgDescription",
-        type: "string",
-      },
-    ],
-    name: "addShg",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_proposalId",
-        type: "uint256",
-      },
-    ],
-    name: "claimFund",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "joinShg",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "_proposalName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_proposalDescription",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "proposal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_tempId",
-        type: "uint256",
-      },
-    ],
-    name: "votingAgainst",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_tempId",
-        type: "uint256",
-      },
-    ],
-    name: "votingInFavour",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "funder",
-        type: "address",
-      },
-    ],
-    name: "getFunderDetails",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_memberAddress",
-        type: "address",
-      },
-    ],
-    name: "getMemberOfShg",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getMemberOfShg",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "getMembers",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "",
-        type: "address[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "getNumberOfFunders",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getProposalCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "getProposalIdsInShg",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "getShgAdmin",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "getShgBalance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getShgCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "getShgCreationTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "getShgDescription",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-    ],
-    name: "getShgName",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_shgId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "funder",
-        type: "address",
-      },
-    ],
-    name: "isFunder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "memberOfShg",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "membershipProposal",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "proposalDetails",
-    outputs: [
-      {
-        internalType: "address",
-        name: "proposer",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "proposalName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "proposalDescription",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "votesInFavour",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "votesAgainst",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "timeOfProposal",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "proposalId",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "proposalIdInShg",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "shgDetails",
-    outputs: [
-      {
-        internalType: "address",
-        name: "admin",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "shgName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "shgDescription",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "timeOfCreation",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "balance",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "numberOfFunders",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "shgId",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-];
+const CONTRACT_ADDRESS = "0xa2de5dDABa3b6C7cce0A25D01E736785023bf0f7";
+const ABI =[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "addFunds",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_shgName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_shgDescription",
+				"type": "string"
+			}
+		],
+		"name": "addShg",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "claimFund",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "joinShg",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_proposalName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_proposalDescription",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "proposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tempId",
+				"type": "uint256"
+			}
+		],
+		"name": "votingAgainst",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tempId",
+				"type": "uint256"
+			}
+		],
+		"name": "votingInFavour",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "funder",
+				"type": "address"
+			}
+		],
+		"name": "getFunderDetails",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_memberAddress",
+				"type": "address"
+			}
+		],
+		"name": "getMemberOfShg",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getMemberOfShg",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "getMembers",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "getNumberOfFunders",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getProposalCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "getProposalIdsInShg",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "getShgAdmin",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "getShgBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getShgCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "getShgCreationTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "getShgDescription",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			}
+		],
+		"name": "getShgName",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_shgId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "funder",
+				"type": "address"
+			}
+		],
+		"name": "isFunder",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "memberOfShg",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "membershipProposal",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalDetails",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "proposer",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "proposalName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "proposalDescription",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "votesInFavour",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "votesAgainst",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timeOfProposal",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "proposalId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposalIdInShg",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "shgDetails",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "admin",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "shgName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "shgDescription",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timeOfCreation",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "balance",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numberOfFunders",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "shgId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
 
 function FindShg() {
   const [modal, setModal] = useState(false);
@@ -631,9 +631,11 @@ function FindShg() {
 			for(let i =1; i<=resp.toNumber(); i++){
 				let name = (await connectedContract.getShgName(i))
 				let description = (await connectedContract.getShgDescription(i))
-				let timeStamp = (await connectedContract.getShgCreationTime(i)).toNumber()
-				let memberCount = (await connectedContract.getMembers(i))
-				let date = new Date(parseInt(timeStamp))
+				let timeStamp = (await connectedContract.getShgCreationTime(i)).toString()
+				let memberCount = (await connectedContract.getMembers(i)).toString()
+				
+        
+        let date = new Date(parseInt(timeStamp*1000))
 				console.log(date)
 				let formatted = date.toLocaleString("en-us", {
 					month: "short",
@@ -665,7 +667,7 @@ function FindShg() {
             <h1 className="text-white text-[40px] uppercase">{elem.name}</h1>
             <p className="text-white text-[20px]">{elem.desc}</p>
             <p className="text-white text-[20px]">Date - {elem.date}</p>
-            <p className="text-white text-[20px]">Members - {elem.members.slice(0, 5)}</p>
+            <p className="text-white text-[20px]">Members - {`${elem.members.slice(0, 5)}...${elem.members.slice(elem.members.length - 5, elem.members.length)}`}</p>
             <button className="text-white" onClick={() => joinShg(elem.shgId)}>
               Join Now
             </button>
